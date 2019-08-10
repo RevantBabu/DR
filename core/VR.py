@@ -36,7 +36,7 @@ def generateDistanceMatrix(n, tau):
 
   return result  
 
-
+#args : file_name start_time end_time window
 df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + ".csv", header=None)
 n1 = df1[0].values
 start = int(sys.argv[2])

@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -49,14 +50,18 @@ def generateLaplacianMatrix(tM):
   return result
 
 
-d1 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+d1 = np.load("distance_matrix_" + sys.argv[1] + ".npy")
 #d2 = np.load("distance_matrix_T26_0_1s_20ms.npy")
 #dM = np.sqrt(d1**2 + d2**2)
 dM = d1
 sM = generateSimilarityMatrix(dM)
-tM = thresholdMatrix(sM, 10)
+tM = thresholdMatrix(sM, 2)
 lM = generateLaplacianMatrix(tM)
 
+
+#print(sM)
+#print(tM)
+#print(lM)
 
 w, v = np.linalg.eig(lM)
 #idx = w.argsort()[::-1]
@@ -65,10 +70,16 @@ idx = w.argsort()
 wSorted = w[idx]
 vSorted = v[idx]
 print("eigenValues")
-print(wSorted , "\n")
+#print(wSorted , "\n")
 
 print("eigenVectors")
-print(vSorted, "\n")
+#print(vSorted, "\n")
 
-np.savetxt('eigenValues.txt', wSorted)
-np.savetxt('eigenVectors.txt', vSorted)
+np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
+np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
+
+
+fig = plt.figure(figsize=(9,4))
+ax = plt.subplot(111)
+ax.plot(vSorted[1], 'o', markersize=0.4)
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector.png")
