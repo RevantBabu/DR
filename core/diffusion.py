@@ -10,7 +10,7 @@ def generateSimilarityMatrix(dM):
   for i in range(0, n):
     for j in range(0, m):
       if (i==j): result[i][j] = 0
-      elif (dM[i][j]==0): result[i][j] = 0#1 #because some slots have 0 spikes? 
+      elif (dM[i][j]==0): result[i][j] = 0#1 #because some slots have 0 spikes?
       # is default 1 fine? if 0 used, gives imaginary eVs
       else: result[i][j] = 1/dM[i][j]
   return result
@@ -35,7 +35,7 @@ def thresholdMatrix(sM, topN):
     for j in range(0, m):
       if (sM[i][j]>=rowTopN[i] or sM[i][j]>=columnTopN[j]):
         result[i][j] = sM[i][j]
-  
+
   return result
 
 def generateLaplacianMatrix(tM):
@@ -55,7 +55,7 @@ d1 = np.load("distance_matrix_" + sys.argv[1] + ".npy")
 #dM = np.sqrt(d1**2 + d2**2)
 dM = d1
 sM = generateSimilarityMatrix(dM)
-tM = thresholdMatrix(sM, 2)
+tM = thresholdMatrix(sM, 10)
 lM = generateLaplacianMatrix(tM)
 
 
