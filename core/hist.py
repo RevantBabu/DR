@@ -16,5 +16,10 @@ for spike in spikes:
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.bar(range(n), d)
+ax.bar(range(n), d, label="Target neuron")
+plt.title('Spiking distribution')
+plt.xlabel('time')
+plt.ylabel('spike count')
+ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 plt.savefig('../results/' + sys.argv[1] + "_dist.png")
+plt.savefig('../results/' + sys.argv[1] + "_dist.svg", format="svg")

@@ -10,7 +10,7 @@ df.columns = ['timestamp', 'xpos', 'ypos']
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(df['xpos'], df['ypos'], 'o', label="Position")
+ax.plot(df['xpos'], df['ypos'], 'o', label="Target neuron")
 plt.title('Position plot')
 plt.xlabel('x position')
 plt.ylabel('y position')
