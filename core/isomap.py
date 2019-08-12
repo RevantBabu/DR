@@ -28,8 +28,21 @@ def thresholdMatrix(sM, topN):
 
   return result
 
-dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
-tM = thresholdMatrix(dM, 10) #CHANGE TO MIN(non zero)!!!!!!!!!!
+#dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
+d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
+d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
+d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
+d4 = np.load("distance_matrix_T22_4_1s_20ms.npy")
+d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
+d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
+d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
+d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
+d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
+d11 = np.load("distance_matrix_T27_6_1s_20ms.npy")
+
+dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
+tM = thresholdMatrix(dM, 10)
 graph = csr_matrix(tM)
 
 # graph = [
@@ -56,4 +69,5 @@ coords = results.embedding_
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0], coords[:, 1], 'o')
-plt.savefig('../results/' + sys.argv[1] + "_isomap.png")
+#plt.savefig('../results/' + sys.argv[1] + "_isomap.png")
+plt.savefig('../results/all_isomap.png')

@@ -50,10 +50,22 @@ def generateLaplacianMatrix(tM):
   return result
 
 
-d1 = np.load("distance_matrix_" + sys.argv[1] + ".npy")
-#d2 = np.load("distance_matrix_T26_0_1s_20ms.npy")
-#dM = np.sqrt(d1**2 + d2**2)
-dM = d1
+dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
+
+# d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
+# d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
+# d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
+#d4 = np.load("distance_matrix_T22_4_1s_20ms.npy")
+#d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
+# d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
+# d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
+# d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+# d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
+# d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
+#d11 = np.load("distance_matrix_T27_6_1s_20ms.npy")
+
+#dM = np.sqrt(d1**2 + d2**2 + d3**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2)
+
 sM = generateSimilarityMatrix(dM)
 tM = thresholdMatrix(sM, 10)
 lM = generateLaplacianMatrix(tM)
@@ -75,11 +87,12 @@ print("eigenValues")
 print("eigenVectors")
 #print(vSorted, "\n")
 
-np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
-np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
+#np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
+#np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
 
 
 fig = plt.figure(figsize=(9,4))
 ax = plt.subplot(111)
-ax.plot(vSorted[1], 'o', markersize=0.4)
+ax.plot(vSorted[1], 'o')#, markersize=0.4)
 plt.savefig('../results/' + sys.argv[1] + "_leadingVector.png")
+#plt.savefig('../results/all_sparse_leadingVector.png')
