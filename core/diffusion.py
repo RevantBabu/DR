@@ -49,21 +49,31 @@ def generateLaplacianMatrix(tM):
       else: result[i][j] = -tM[i][j]/columnSums[j]
   return result
 
-
-dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
-
-# d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
-# d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
-# d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
-# d4 = np.load("distance_matrix_T22_4_1s_20ms.npy")
-# d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
-# d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
-# d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
-# d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
-# d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
-# d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
-# d11 = np.load("distance_matrix_T27_6_1s_20ms.npy")
-# dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
+if sys.argv[1]=="all":
+  d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
+  d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
+  d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
+  d4 = np.load("distance_matrix_T22_4_1s_20ms.npy")
+  d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
+  d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
+  d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
+  d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+  d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
+  d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
+  d11 = np.load("distance_matrix_T27_6_1s_20ms.npy")
+  dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
+elif sys.argv[1]=="all_sparse":
+  d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
+  d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
+  d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
+  d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
+  d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
+  d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+  d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
+  d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
+  dM = np.sqrt(d1**2 + d2**2 + d3**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2)
+else:  
+  dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
 
 sM = generateSimilarityMatrix(dM)
 tM = thresholdMatrix(sM, 10)
@@ -98,4 +108,3 @@ plt.xlabel('time')
 plt.ylabel('Leading eV values')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 plt.savefig('../results/' + sys.argv[1] + "_leadingVectors.svg", format="svg")
-#plt.savefig('../results/all_leadingVector.svg', format="svg")
