@@ -96,8 +96,8 @@ print("eigenValues")
 print("eigenVectors")
 #print(vSorted, "\n")
 
-np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
-np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
+#np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
+#np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
 
 
 fig = plt.figure(figsize=(9,4))
