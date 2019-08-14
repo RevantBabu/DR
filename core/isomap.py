@@ -56,7 +56,8 @@ graph = csr_matrix(tM)
 # print(graph)
 # graph = csr_matrix(graph)
 
-adist = dijkstra(csgraph=graph, directed=False, indices=range(0,805))
+print(dM.shape[0])
+adist = dijkstra(csgraph=graph, directed=False, indices=range(0,dM.shape[0]))
 print(np.count_nonzero(adist==0))
 
 amax = np.amax(adist)
@@ -69,7 +70,7 @@ coords = results.embedding_
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
+ax.plot(coords[:, 0], coords[:, 1], 'o-', label="Target neurons")
 plt.title('Isomap Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
