@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N stencil
+#PBS -o stencil.out
+#PBS -joe
+#PBS -m a
+#PBS -qteaching
+#PBS -lnodes=1:ppn=1
+#PBS -lwalltime=02:30:00
+
+cd $PBS_O_WORKDIR
+
+echo Running on host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo PBS job ID is $PBS_JOBID
+
+module load languages/gcc-7.1.0
+module load languages/python-3.3.2
+#python VR.py N1 3562 5298 20

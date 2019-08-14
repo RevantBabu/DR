@@ -1,7 +1,8 @@
 import sys
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+import csv
+#import pandas as pd
+#import matplotlib.pyplot as plt
 
 
 def vanRossumDistance(u, v, tau):
@@ -34,11 +35,12 @@ def generateDistanceMatrix(n, tau):
     for j in range(0, i):
       result[i][j] = result[j][i]
 
-  return result
+  return np.sqrt(result)
 
 #args : file_name start_time end_time window
-df1 = pd.read_csv("../data/processed/mj/" + sys.argv[1] + "_filtered.csv", header=None)
-n1 = df1[0].values
+#df1 = pd.read_csv("../data/processed/mj/" + sys.argv[1] + "_filtered.csv", header=None)
+#n1 = df1[0].values
+n1 = np.genfromtxt("../data/processed/mj/" + sys.argv[1] + "_filtered.csv", delimiter=',')
 start = int(sys.argv[2])
 end = int(sys.argv[3])
 slots = end-start
@@ -54,4 +56,4 @@ for spike_time in n1:
 d = generateDistanceMatrix(slots, int(sys.argv[4]))
 
 np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[4] + "ms.npy", d)
-print(d.shape)
+print(d)

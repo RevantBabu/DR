@@ -1,7 +1,7 @@
 import sys
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+#import pandas as pd
+#import matplotlib.pyplot as plt
 
 
 def vanRossumDistance(u, v, tau):
@@ -34,11 +34,12 @@ def generateDistanceMatrix(n, tau):
     for j in range(0, i):
       result[i][j] = result[j][i]
 
-  return result  
+  return np.sqrt(result)
 
 #args : file_name start_time end_time window
-df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + ".csv", header=None)
-n1 = df1[0].values
+#df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + ".csv", header=None)
+#n1 = df1[0].values
+n1 = np.genfromtxt("../data/processed/hc_13/" + sys.argv[1] + ".csv", delimiter=',')[:, 0]
 start = int(sys.argv[2])
 end = int(sys.argv[3])
 slots = end-start

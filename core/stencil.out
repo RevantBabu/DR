@@ -1,0 +1,8 @@
+Running on host node46-017
+Time is Wed Aug 14 20:50:20 BST 2019
+Directory is /newhome/ic18314/DR/DR/core
+PBS job ID is 8625514.master.cm.cluster
+Traceback (most recent call last):
+  File "VR.py", line 42, in <module>
+    n1 = np.genfromtxt("../data/processed/hc_13/" + sys.argv[1] + ".csv", delimiter=',')[:, 0]
+IndexError: too many indices
