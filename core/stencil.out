@@ -1,7 +1,7 @@
 Running on host node46-017
-Time is Wed Aug 14 20:57:16 BST 2019
+Time is Thu Aug 15 04:47:20 BST 2019
 Directory is /newhome/ic18314/DR/DR/core
-PBS job ID is 8625516.master.cm.cluster
+PBS job ID is 8625568.master.cm.cluster
 0
 1
 2
@@ -807,4 +807,3 @@ PBS job ID is 8625516.master.cm.cluster
 802
 803
 804
-(805, 805)
