@@ -25,7 +25,6 @@ def thresholdMatrix(sM, topN):
 
   rowTopN = np.zeros(n)
   columnTopN = np.zeros(n)
-
   for i in range(0, n):
     rowTopN[i] = rowSorted[i, :][n-topN]
     columnTopN[i] = columnSorted[:, i][n-topN]
@@ -38,11 +37,12 @@ def thresholdMatrix(sM, topN):
 
   return result
 
-def generateLaplacianMatrix(tM):
+def generateLaplacianMatrix(tM, sM):
   n = tM.shape[0]
   m = tM.shape[1]
   result = np.zeros(shape=(n,m))
   columnSums = np.sum(tM, axis = 0)
+  numZeros = np.count_nonzero(sM==0, axis=0)
   for i in range(0, n):
     for j in range(0, m):
       if (i==j): result[i][j] = 1
@@ -50,18 +50,19 @@ def generateLaplacianMatrix(tM):
   return result
 
 if sys.argv[1]=="all":
-  d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
-  d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
-  d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
-  d4 = np.load("distance_matrix_T22_4_1s_20ms.npy")
-  d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
-  d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
-  d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
-  d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
-  d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
-  d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
-  d11 = np.load("distance_matrix_T27_6_1s_20ms.npy")
-  dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
+  # d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
+  # d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
+  # d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
+  d4 = np.load("distance_matrix_T22_4_1s_" + sys.argv[2] + "ms.npy")
+  # d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
+  # d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
+  # d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
+  # d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
+  # d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
+  # d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
+  d11 = np.load("distance_matrix_T27_6_1s_" + sys.argv[2] + "ms.npy")
+  #dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
+  dM = np.sqrt(d4**2 + d11**2)  
 elif sys.argv[1]=="all_sparse":
   d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
   d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
@@ -75,10 +76,16 @@ elif sys.argv[1]=="all_sparse":
 else:  
   dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
 
-sM = generateSimilarityMatrix(dM)
-tM = thresholdMatrix(sM, 10)
-lM = generateLaplacianMatrix(tM)
 
+#dM = np.asarray([[0, 0, 1, 2, 0], [0, 0, 5, 1, 0], [1, 5, 0, 3, 1], [2, 1, 3, 0, 2], [0, 0, 1, 2, 0]])
+
+#print(dM)
+sM = generateSimilarityMatrix(dM)
+#print(sM)
+tM = thresholdMatrix(sM, 10)
+#print(tM)
+lM = generateLaplacianMatrix(tM, sM)
+#print(lM)
 
 #print(sM)
 #print(tM)
@@ -96,15 +103,37 @@ print("eigenValues")
 print("eigenVectors")
 #print(vSorted, "\n")
 
-#np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
-#np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
+np.savetxt('../results/' + sys.argv[1] + '_eigenValues.txt', wSorted)
+np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
 
 
 fig = plt.figure(figsize=(9,4))
 ax = plt.subplot(111)
-ax.plot(vSorted[1], vSorted[2], 'o', label="Target neurons")#, markersize=0.4)
+ax.plot(vSorted[1]/vSorted[0], vSorted[2]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
 plt.title('Diffusion map, leading dimension')
 plt.xlabel('time')
 plt.ylabel('Leading eV values')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 plt.savefig('../results/' + sys.argv[1] + "_leadingVectors.svg", format="svg")
+
+
+fig = plt.figure(figsize=(9,4))
+ax = plt.subplot(111)
+ax.plot(vSorted[1]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
+plt.title('Diffusion map, leading dimension')
+plt.xlabel('time')
+plt.ylabel('Leading eV values')
+ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector1.svg", format="svg")
+
+
+fig = plt.figure(figsize=(9,4))
+ax = plt.subplot(111)
+ax.plot(vSorted[2]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
+plt.title('Diffusion map, leading dimension')
+plt.xlabel('time')
+plt.ylabel('Leading eV values')
+ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector2.svg", format="svg")
+
+

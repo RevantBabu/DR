@@ -4,53 +4,37 @@ import numpy as np
 #import matplotlib.pyplot as plt
 
 
-def vanRossumDistance(u, v, tau1, tau2, tau3):
-  componentU1 = 0;
-  componentU2 = 0;
-  componentU3 = 0;
+def vanRossumDistance(u, v, tau):
+  componentU = 0;
   for i in range(0, u.shape[0]):
     for j in range(0, u.shape[0]):
-      componentU1 += np.exp(-abs(u[i]-u[j])/tau1)
-      componentU2 += np.exp(-abs(u[i]-u[j])/tau2)
-      componentU3 += np.exp(-abs(u[i]-u[j])/tau3)
+      componentU += np.exp(-abs(u[i]-u[j])/tau)
 
-  componentV1 = 0;
-  componentV2 = 0;
-  componentV3 = 0;
+  componentV = 0;
   for i in range(0, v.shape[0]):
     for j in range(0, v.shape[0]):
-      componentV1 += np.exp(-abs(v[i]-v[j])/tau1)
-      componentV2 += np.exp(-abs(v[i]-v[j])/tau2)
-      componentV3 += np.exp(-abs(v[i]-v[j])/tau3)
+      componentV += np.exp(-abs(v[i]-v[j])/tau)
 
-  componentUV1 = 0;
-  componentUV2 = 0;
-  componentUV3 = 0;
+  componentUV = 0;
   for i in range(0, u.shape[0]):
     for j in range(0, v.shape[0]):
-      componentUV1 += np.exp(-abs(u[i]-v[j])/tau1)
-      componentUV2 += np.exp(-abs(u[i]-v[j])/tau2)
-      componentUV3 += np.exp(-abs(u[i]-v[j])/tau3)
+      componentUV += np.exp(-abs(u[i]-v[j])/tau)
 
-  return (componentU1 + componentV1 - 2*componentUV1), (componentU2 + componentV2 - 2*componentUV2), (componentU3 + componentV3 - 2*componentUV3)
+  return (componentU + componentV - 2*componentUV)
 
 
-def generateDistanceMatrix(n, tau1, tau2, tau3):
-  result1 = np.zeros(shape=(n,n))
-  result2 = np.zeros(shape=(n,n))
-  result3 = np.zeros(shape=(n,n))
+def generateDistanceMatrix(n, tau):
+  result = np.zeros(shape=(n,n))
   for i in range(0, n):
     print(i)
     for j in range(i+1, n):
-      result1[i][j], result2[i][j], result3[i][j] = vanRossumDistance(np.asarray(n1counts[i] if (i in n1counts) else []), np.asarray(n1counts[j] if (j in n1counts) else []), tau1, tau2, tau3)
+      result[i][j] = vanRossumDistance(np.asarray(n1counts[i] if (i in n1counts) else []), np.asarray(n1counts[j] if (j in n1counts) else []), tau)
   
   for i in range(0, n):
     for j in range(0, i):
-      result1[i][j] = result1[j][i]
-      result2[i][j] = result2[j][i]
-      result3[i][j] = result3[j][i]
+      result[i][j] = result[j][i]
 
-  return np.sqrt(result1), np.sqrt(result2), np.sqrt(result3)
+  return np.sqrt(result)
 
 #args : file_name start_time end_time window
 #df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + ".csv", header=None)
@@ -68,9 +52,7 @@ for spike_time in n1:
 	else:
 		n1counts[key] = [int((spike_time-int(spike_time))*1000)]
 
-d1, d2, d3 = generateDistanceMatrix(slots, int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
+d = generateDistanceMatrix(slots, int(sys.argv[4]))
 
-np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[4] + "ms.npy", d1)
-np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[5] + "ms.npy", d2)
-np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[6] + "ms.npy", d3)
+np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[4] + "ms.npy", d)
 #print(d.shape)
