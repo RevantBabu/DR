@@ -29,7 +29,7 @@ def vanRossumDistance(u, v, tau):
   return (componentU + componentV - 2*componentUV)
 
 
-def generateDistanceMatrix(n, tau):
+def generateDistanceMatrix(n, tau, n1counts):
   result = np.zeros(shape=(n,n))
   ncounts = {}
 
@@ -48,8 +48,8 @@ def generateDistanceMatrix(n, tau):
   return np.sqrt(result)
 
 
-n1counts = {}
 def store_distance_matrix(f):
+	n1counts = {}
 	print(f)
 	print(path + f)
 	n1 = np.genfromtxt(path + f, delimiter=',')
@@ -64,7 +64,7 @@ def store_distance_matrix(f):
 		else:
 			n1counts[key] = [int((spike_time-int(spike_time))*1000)]
 
-	d = generateDistanceMatrix(slots, 20) #20ms fixed for now
+	d = generateDistanceMatrix(slots, 20, n1counts) #20ms fixed for now
 	np.save(dpath + f[:-4] + "_1s_20ms.npy", d)
 
 
