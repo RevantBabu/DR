@@ -53,5 +53,5 @@ z = np.linspace(0, N, N)
 ax.plot(resX, resY, z, 'o-', label='parametric curve', linewidth=0.6, markersize=1)# c = plt.cm.jet(z/max(z)))
 ax.legend()
 
-
-plt.savefig("position_plot_spacetime3D.svg", format="svg")
+plt.show()
+#plt.savefig("position_plot_spacetime3D.svg", format="svg")
