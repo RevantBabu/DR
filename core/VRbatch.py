@@ -2,8 +2,10 @@ import os
 import sys
 import numpy as np
 
-path = '..\\data\\processed\\hc_13\\' + sys.argv[1] + '\\' + sys.argv[2] + '\\'
-dpath = '..\\distances\\' + sys.argv[1] + '\\' + sys.argv[2] + '\\'
+#path = '..\\data\\processed\\hc_13\\' + sys.argv[1] + '\\' + sys.argv[2] + '\\'
+path = '../data/processed/hc_13/' + sys.argv[1] + '/' + sys.argv[2] + '/'
+#dpath = '..\\distances\\' + sys.argv[1] + '\\' + sys.argv[2] + '\\'
+dpath = '../distances/' + sys.argv[1] + '/' + sys.argv[2] + '/'
 start = int(sys.argv[3])
 end = int(sys.argv[4])
 
