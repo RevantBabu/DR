@@ -25,10 +25,15 @@ def vanRossumDistance(u, v, tau):
 
 def generateDistanceMatrix(n, tau):
   result = np.zeros(shape=(n,n))
+  ncounts = {}
+
+  for i in range(0, n):
+    ncounts[i] = np.asarray(n1counts[i] if (i in n1counts) else [])
+
   for i in range(0, n):
     print(i)
     for j in range(i+1, n):
-      result[i][j] = vanRossumDistance(np.asarray(n1counts[i] if (i in n1counts) else []), np.asarray(n1counts[j] if (j in n1counts) else []), tau)
+      result[i][j] = vanRossumDistance(ncounts[i], ncounts[j], tau)
   
   for i in range(0, n):
     for j in range(0, i):
