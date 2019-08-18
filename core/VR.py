@@ -44,9 +44,11 @@ def generateDistanceMatrix(n, tau):
 #args : file_name start_time end_time window
 #df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + ".csv", header=None)
 #n1 = df1[0].values
-n1 = np.genfromtxt("../data/processed/hc_13/" + sys.argv[1] + ".csv", delimiter=',')[:, 0]
-start = int(sys.argv[2])
-end = int(sys.argv[3])
+n1 = np.genfromtxt("../data/processed/hc_13/" + sys.argv[1] + "/" + sys.argv[2] + "/" + sys.argv[3] + ".csv", delimiter=',')
+if (n1.size!=n1.shape[0]):
+	n1 = n1[:, 0]
+start = int(sys.argv[4])
+end = int(sys.argv[5])
 slots = end-start
 n1counts = {}
 
@@ -59,5 +61,5 @@ for spike_time in n1:
 
 d = generateDistanceMatrix(slots, int(sys.argv[4]))
 
-np.save("distance_matrix_" + sys.argv[1] + "_1s_" + sys.argv[4] + "ms.npy", d)
+np.save("../distances/" + sys.argv[1] + "/" + sys.argv[2] + "/" + "distance_matrix_" + sys.argv[3] + "_1s_20ms.npy", d)
 #print(d.shape)
