@@ -5,7 +5,7 @@
 #PBS -m a
 #PBS -qteaching
 #PBS -lnodes=1:ppn=1
-#PBS -lwalltime=10:00:00
+#PBS -lwalltime=22:00:00
 
 cd $PBS_O_WORKDIR
 
