@@ -53,6 +53,7 @@ if sys.argv[1]=="all":
   d10 = d10/np.amax(d10)
   d11 = d11/np.amax(d11)
   d12 = d12/np.amax(d12)
+  #dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d10**2 + d11**2)
   dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2 + d12**2)
 elif sys.argv[1]=="all_sparse":
   d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
@@ -65,7 +66,7 @@ elif sys.argv[1]=="all_sparse":
   d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
   dM = np.sqrt(d1**2 + d2**2 + d3**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2)
 else:  
-  dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
+  dM = np.load("../distances/21/1/distance_matrix_" + sys.argv[1] + ".npy")
 
 tM = thresholdMatrix(dM, 10)
 graph = csr_matrix(tM)
