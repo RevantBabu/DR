@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D 
 
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
@@ -68,13 +69,13 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o-', label="Target neurons")
+ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
 plt.title('DM_lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
-plt.savefig('../results/21/1/spatial_dm2d.png')
+plt.savefig('../results/21/1/dm2d.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
@@ -84,7 +85,7 @@ plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
-plt.savefig('../results/21/1/spatial_dmev1.png')
+plt.savefig('../results/21/1/dmev1.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
@@ -94,4 +95,16 @@ plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib_ev2.svg', format="svg")
-plt.savefig('../results/21/1/spatial_dmev2.png')
+plt.savefig('../results/21/1/dmev2.png')
+
+
+rng = dM.shape[0]
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+z = np.linspace(0, rng, rng)
+
+ax.plot(coords[:, 0], coords[:, 1], z, 'o-', label='parametric curve', linewidth=0.6, markersize=1)# c = plt.cm.jet(z/max(z)))
+ax.legend()
+
+#plt.show()
+plt.savefig('../results/21/1/dm3d.png')
