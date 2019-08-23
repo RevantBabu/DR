@@ -1,0 +1,5 @@
+- ggobi, components for filtering, sorting
+- data analysis
+    dist & spatial plots
+
+- add all days

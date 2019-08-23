@@ -38,7 +38,7 @@ plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/over
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(resX, resY, 'o', label="Target neuron")
+ax.plot(resX[200:245] + resY[200:245], 'o', label="Target neuron")
 plt.title('Position plot')
 plt.xlabel('x position')
 plt.ylabel('y position')
