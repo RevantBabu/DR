@@ -20,7 +20,7 @@ for day in range(days.size):
 								area = 'NA'
 								if tetInfo['tetinfo'][0][day][0][epoch][0][tetrode].size!=0:
 									area = tetInfo['tetinfo'][0][day][0][epoch][0][tetrode][0][0]['area'][0]
-								if area!='PFC':
+								if area=='PFC':
 									start = cells[0][cell][0][0]['timerange'][0][0]/10000
 									end = cells[0][cell][0][0]['timerange'][0][1]/10000
 									timerange = (cells[0][cell][0][0]['timerange'][0][1]-cells[0][cell][0][0]['timerange'][0][0])/10000
