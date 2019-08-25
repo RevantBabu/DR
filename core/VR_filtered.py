@@ -1,7 +1,6 @@
 import sys
 import scipy.io
 import numpy as np
-import pandas as pd
 
 mat = scipy.io.loadmat('../data/raw/hc_13/T1rawpos.mat')
 days = mat['rawpos']
@@ -118,3 +117,4 @@ def generateDistanceMatrix(n, tau, n1c):
 
 
 d = generateDistanceMatrix(slots, 20, nfcounts4)
+np.save("../distances/" + sys.argv[1] + "/" + sys.argv[2] + "/" + "filtered_distance_matrix_" + sys.argv[3] + "_1s_20ms.npy", d)
