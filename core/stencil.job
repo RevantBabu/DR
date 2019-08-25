@@ -16,4 +16,4 @@ echo PBS job ID is $PBS_JOBID
 
 module load languages/gcc-7.1.0
 module load languages/python-3.3.2
-python VR.py 21 5 T19_0 9050 9541
+python VR_filtered.py 21 1 T27_6 790 1595
