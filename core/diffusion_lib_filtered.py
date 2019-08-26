@@ -52,7 +52,7 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o-', label="Target neurons")
+ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
 plt.title('DM_lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
