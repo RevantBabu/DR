@@ -6,6 +6,10 @@ from sklearn import manifold
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import dijkstra
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
 def thresholdMatrix(sM, topN):
   n = sM.shape[0]
   m = sM.shape[1]
@@ -94,12 +98,13 @@ results = mds.fit(adist)
 
 coords = results.embedding_
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
+ax.plot(coords[:, 0]*10, coords[:, 1]*10, 'o', label="Target neurons")
 plt.title('Isomap Dimensions')
-plt.xlabel('dimension1')
-plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+plt.xlabel('dimension1 ($10^{-1}$)')
+plt.ylabel('dimension2 ($10^{-1}$)')
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/' + sys.argv[1] + "_isomap.svg", format="svg")
 plt.savefig('../results/21/1/isomap2d.png')
+plt.savefig('../results/21/1/isomap2d.pdf')

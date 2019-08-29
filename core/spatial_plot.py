@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from matplotlib import rc
 rc('text', usetex=True)
-rc('font', family='serif', size=28)
+rc('font', family='serif', size=26)
 
 mat = scipy.io.loadmat('../data/raw/hc_13/T1rawpos.mat')
 days = mat['rawpos']
@@ -43,19 +43,21 @@ plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/over
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(resX, resY, 'o', label="Target neuron")
-plt.title('Position plot')
-plt.xlabel('x position')
-plt.ylabel('y position')
+plt.title('spiking-position plot (1Hz)')
+plt.xlabel('x position (cm)')
+plt.ylabel('y position (cm)')
 plt.xlim(80, 270)
 #ax.legend(loc='upper left', bbox_to_anchor=(0, 1.075), shadow=True, ncol=1)
 plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall.pdf")
+plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall.png")
 
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(xs, ys, 'o', label="Target neuron")
-plt.title('Position plot')
-plt.xlabel('x position')
-plt.ylabel('y position')
+plt.title('spiking-position plot (25Hz)')
+plt.xlabel('x position (cm)')
+plt.ylabel('y position (cm)')
 plt.xlim(80, 270)
 #ax.legend(loc='upper left', bbox_to_anchor=(0, 1.075), shadow=True, ncol=1)
 plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall_hf.pdf")
+plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall_hf.png")

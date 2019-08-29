@@ -6,6 +6,11 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
+
 #X = np.genfromtxt("../data/processed/hc_13/T22_4.csv", delimiter=',')[:, (1,2)]
 d1 = np.load("../distances/21/1/distance_matrix_T22_0_1s_20ms.npy")
 d2 = np.load("../distances/21/1/distance_matrix_T22_2_1s_20ms.npy")
@@ -69,17 +74,18 @@ coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
 #coords = embedding.fit( np.exp(-dM/64) ).embedding_
 print(coords.shape)
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
-plt.title('DM_lib Dimensions')
+plt.title('DiffusionMap Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
 plt.savefig('../results/21/1/dm2d.png')
+plt.savefig('../results/21/1/dm2d.pdf')
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0], 'o-', label="Target neurons")
 plt.title('DM_lib Dimensions')
@@ -89,7 +95,7 @@ ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/dmev1.png')
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(coords[:, 1], 'o-', label="Target neurons")
 plt.title('DM_lib Dimensions')
