@@ -8,6 +8,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
 #X = np.genfromtxt("../data/processed/hc_13/T22_4.csv", delimiter=',')[:, (1,2)]
 d1 = np.load("../distances/21/1/distance_matrix_T22_0_1s_20ms.npy")
 d2 = np.load("../distances/21/1/distance_matrix_T22_2_1s_20ms.npy")
@@ -113,13 +117,13 @@ for i in range(0, spikes.size):
 # #plt.show()
 # plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall3D.png")
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(resX, resY, 'o', label="Target neuron")
 plt.title('Position plot')
 plt.xlabel('x position')
 plt.ylabel('y position')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/filtered_" + cellNo + ".png")
 
 
@@ -138,41 +142,41 @@ for i in range(0,rng):
     cornerX.append(resX[i])
     cornerY.append(resY[i])
     if (resX[i]<115 and resY[i]>100):
-      cornerIdx1[i] = -0.05
+      cornerIdx1[i] = 1
     elif (resX[i]<115 and resY[i]<100):
-      cornerIdx2[i] = -0.05
+      cornerIdx2[i] = 1
     elif (resX[i]>240 and resY[i]<100):
-      cornerIdx3[i] = -0.05
+      cornerIdx3[i] = 1
     elif (resX[i]>240 and resY[i]>100):
-      cornerIdx4[i] = -0.05
+      cornerIdx4[i] = 1
   else:
     ncX.append(resX[i])
     ncY.append(resY[i])
 
 
-fig = plt.figure(figsize=(9,9))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0][200:300], 'o-', label="Target neurons")
-ax.plot(cornerIdx1[200:300], 'o', label="Corner1")
-ax.plot(cornerIdx2[200:300], 'o', label="Corner2")
-ax.plot(cornerIdx3[200:300], 'o', label="Corner3")
-ax.plot(cornerIdx4[200:300], 'o', label="Corner4")
-plt.title('DM_lib Dimensions')
-plt.xlabel('dimension1')
-plt.ylabel('dimension2')
-ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+ax.plot(coords[:, 0][200:300], 'o-')
+ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:300])[0].shape, -0.05), 'o', label="Corner1")
+ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -0.05), 'o', label="Corner1")
+ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -0.05), 'o', label="Corner1")
+ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -0.05), 'o', label="Corner1")
+plt.title('Diffusion Map Dimension1')
+plt.xlabel('time (s)')
+plt.ylabel('dimension1')
+#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/dmev1_overlap_200.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 1][200:300], 'o-', label="Target neurons")
-ax.plot(cornerIdx1[200:300], 'o', label="Corner1")
-ax.plot(cornerIdx2[200:300], 'o', label="Corner2")
-ax.plot(cornerIdx3[200:300], 'o', label="Corner3")
-ax.plot(cornerIdx4[200:300], 'o', label="Corner4")
-plt.title('DM_lib Dimensions')
-plt.xlabel('dimension1')
+ax.plot(np.nonzero(cornerIdx1[200:300]), -0.05, 'o', label="Corner1")
+ax.plot(np.nonzero(cornerIdx2[200:300]), -0.05, 'o', label="Corner2")
+ax.plot(np.nonzero(cornerIdx3[200:300]), -0.05, 'o', label="Corner3")
+ax.plot(np.nonzero(cornerIdx4[200:300]), -0.05, 'o', label="Corner4")
+plt.title('Diffusion Map Dimension2')
+plt.xlabel('time (s)')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
