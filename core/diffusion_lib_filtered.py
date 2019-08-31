@@ -1,10 +1,69 @@
 import sys
+import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D 
 
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
+
+
+mat = scipy.io.loadmat('../data/raw/hc_13/T1rawpos.mat')
+days = mat['rawpos']
+
+day = 21
+epoch = 1
+cellNo = "T26_0"
+start = 790
+end = 1595
+
+d = days[0][day][0][epoch][0][0]['data']
+spikes = d[:, 0]
+xs = d[:, 1]
+ys = d[:, 2]
+
+fct = 1
+rng = int((end-start)/fct)
+resX = np.zeros(rng)
+resY = np.zeros(rng)
+
+for i in range(0, spikes.size):
+  resX[int((int(spikes[i])-start)/fct)] = xs[i]
+  resY[int((int(spikes[i])-start)/fct)] = ys[i]
+
+cMap = []
+
+for i in range(0,rng):
+  if not (resX[i]>240 or resX[i]<115 or resY[i]>170 or resY[i]<35):
+    if (resX[i]<177 and resY[i]<102.5):
+      cMap.append('r')
+      cMap.append('r')
+      cMap.append('r')
+      cMap.append('r')
+    elif (resX[i]<177 and resY[i]>102.5):
+      cMap.append('b')
+      cMap.append('b')
+      cMap.append('b')
+      cMap.append('b')
+    elif (resX[i]>177 and resY[i]<102.5):
+      cMap.append('g')
+      cMap.append('g')
+      cMap.append('g')
+      cMap.append('g')
+    elif (resX[i]>177 and resY[i]>102.5):
+      cMap.append('k')
+      cMap.append('k')
+      cMap.append('k')
+      cMap.append('k')
+    else:
+      cMap.append('k')
+      cMap.append('k')
+      cMap.append('k')
+      cMap.append('k')
+
+print(len(cMap))
+cMap = cMap[0:805]
+print(len(cMap))
 
 #X = np.genfromtxt("../data/processed/hc_13/T22_4.csv", delimiter=',')[:, (1,2)]
 d1 = np.load("../distances/21/1/filtered_distance_matrix_T22_4_1s_20ms.npy")
@@ -23,6 +82,8 @@ d3 = np.load("../distances/21/1/filtered_distance_matrix_T27_6_1s_20ms.npy")
 # d11 = d11/np.amax(d11)
 # d12 = d12/np.amax(d12)
 dM = np.sqrt(d1**2 + d2**2 + d3**2)
+
+print(dM.shape)
 
 def thresholdMatrix(sM, topN):
   n = sM.shape[0]
@@ -52,13 +113,16 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
+#ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons", c=cMap)
+for i in range(len(cMap)):
+    ax.scatter(coords[i, 0], coords[i, 1], color=cMap[i])
 plt.title('DM_lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
 plt.savefig('../results/21/1/filtered_dm2d.png')
+plt.savefig('../results/21/1/filtered_dm2d.pdf')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)

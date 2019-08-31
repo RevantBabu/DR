@@ -115,6 +115,6 @@ def generateDistanceMatrix(n, tau, n1c):
 
   return np.sqrt(result)
 
-
+#change slots to nfcounts4 len
 d = generateDistanceMatrix(slots, 20, nfcounts4)
 np.save("../distances/" + sys.argv[1] + "/" + sys.argv[2] + "/" + "filtered_distance_matrix_" + sys.argv[3] + "_1s_20ms.npy", d)
