@@ -7,6 +7,11 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
+
 #X = np.genfromtxt("../data/processed/hc_13/T22_4.csv", delimiter=',')[:, (1,2)]
 d1 = np.load("../distances/21/1/distance_matrix_T12_0_1s_20ms.npy")
 d2 = np.load("../distances/21/1/distance_matrix_T15_0_1s_20ms.npy")
@@ -50,28 +55,29 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o-', label="Target neurons")
-plt.title('DM_lib Dimensions')
+ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
+plt.title('Diffusion Map Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dm2d.png')
+plt.savefig('../results/21/1/pfc/dm2d.pdf')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0], 'o-', label="Target neurons")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dmev1.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 1], 'o-', label="Target neurons")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
@@ -154,10 +160,10 @@ ax.plot(cornerIdx1[200:300], 'o', label="Corner1")
 ax.plot(cornerIdx2[200:300], 'o', label="Corner2")
 ax.plot(cornerIdx3[200:300], 'o', label="Corner3")
 ax.plot(cornerIdx4[200:300], 'o', label="Corner4")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dmev1_overlap_200.png')
 
@@ -168,9 +174,9 @@ ax.plot(cornerIdx1[200:300], 'o', label="Corner1")
 ax.plot(cornerIdx2[200:300], 'o', label="Corner2")
 ax.plot(cornerIdx3[200:300], 'o', label="Corner3")
 ax.plot(cornerIdx4[200:300], 'o', label="Corner4")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dmev2_overlap_200.png')

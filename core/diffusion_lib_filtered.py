@@ -7,6 +7,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
 
 mat = scipy.io.loadmat('../data/raw/hc_13/T1rawpos.mat')
 days = mat['rawpos']
@@ -116,7 +120,7 @@ ax = plt.subplot(111)
 #ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons", c=cMap)
 for i in range(len(cMap)):
     ax.scatter(coords[i, 0], coords[i, 1], color=cMap[i])
-plt.title('DM_lib Dimensions')
+plt.title('Diffusion Map Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
@@ -127,7 +131,7 @@ plt.savefig('../results/21/1/filtered_dm2d.pdf')
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0][200:245], 'o-', label="Target neurons")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
@@ -137,7 +141,7 @@ plt.savefig('../results/21/1/filtered_dmev1.png')
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 1][200:245], 'o-', label="Target neurons")
-plt.title('DM_lib Dimensions')
+plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
