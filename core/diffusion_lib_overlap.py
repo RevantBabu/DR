@@ -107,25 +107,6 @@ for i in range(0, spikes.size):
   resX[int((int(spikes[i])-start)/fct)] = xs[i]
   resY[int((int(spikes[i])-start)/fct)] = ys[i]
 
-# fig = plt.figure()
-# ax = fig.gca(projection='3d')
-# z = np.linspace(0, rng, rng)
-
-# ax.plot(resX, resY, z, 'o-', label='parametric curve', linewidth=0.6, markersize=1)# c = plt.cm.jet(z/max(z)))
-# ax.legend()
-
-# #plt.show()
-# plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall3D.png")
-
-fig = plt.figure(figsize=(8,8))
-ax = plt.subplot(111)
-ax.plot(resX, resY, 'o', label="Target neuron")
-plt.title('Position plot')
-plt.xlabel('x position')
-plt.ylabel('y position')
-#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
-plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/filtered_" + cellNo + ".png")
-
 
 cornerX = []
 cornerY = []
@@ -153,6 +134,14 @@ for i in range(0,rng):
     ncX.append(resX[i])
     ncY.append(resY[i])
 
+
+df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + "/" + sys.argv[2] + "/" + cellNo + ".csv", header=None)
+spikes = df1[0].values
+
+n = end-start
+fr = np.zeros(n)
+for spike in spikes:
+  fr[int(spike) - start] += 1
 
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
@@ -183,3 +172,18 @@ plt.ylabel('dimension2 ($10^{-2}$)')
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/dmev2_overlap_200.png')
 plt.savefig('../results/21/1/dmev2_overlap_200.pdf')
+
+fig = plt.figure(figsize=(8,8))
+ax = plt.subplot(111)
+ax.plot(coords[:, 0][200:300]/np.max(coords[:, 0]), 'o-')
+ax.plot(fr[200:300]/np.max(fr), 'o-')
+plt.title('DM Dimension1 and Firing Rate')
+plt.xlabel('time (s)')
+plt.ylabel('dimension1 ($10^{-2}$)')
+#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+#plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
+plt.savefig('../results/21/1/dmev1_fr_200.png')
+plt.savefig('../results/21/1/dmev1_fr_200.pdf')
+
+print(np.max(fr), np.min(fr))
+print(np.max(coords[:, 0]), np.min(coords[:, 0]))
