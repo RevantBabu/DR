@@ -54,7 +54,7 @@ def thresholdMatrix(sM, topN):
   return result
 
 embedding = SpectralEmbedding(n_components=2, affinity="precomputed", n_neighbors=0)
-coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
+coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 20) ).embedding_
 print(coords.shape)
 
 
@@ -70,12 +70,12 @@ for i in range(0, sM.shape[0]):
   for a in range(0, l):
     for b in range(a+1, l):
         total_count += 1;
-        if (sM[i,r[a]]>sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) < abs(coords[i,0]-coords[r[b],0]))):
+        if (sM[i,r[a]]>=sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) <= abs(coords[i,0]-coords[r[b],0]))):
           similar_count1 += 1
         elif (sM[i,r[a]]<sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) > abs(coords[i,0]-coords[r[b],0]))):
           similar_count1 += 1
 
-        if (sM[i,r[a]]>sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) < abs(coords[i,1]-coords[r[b],1]))):
+        if (sM[i,r[a]]>=sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) <= abs(coords[i,1]-coords[r[b],1]))):
           similar_count2 += 1
         elif (sM[i,r[a]]<sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) > abs(coords[i,1]-coords[r[b],1]))):
           similar_count2 += 1
@@ -85,8 +85,8 @@ print(similar_count1, similar_count2, total_count, similar_count1/total_count, s
 
 
 
-tM = thresholdMatrix(dM, 10)
-sM = thresholdMatrix(1/(dM+0.1), 10)
+tM = thresholdMatrix(dM, 20)
+sM = thresholdMatrix(1/(dM+0.1), 20)
 graph = csr_matrix(tM)
 
 print(dM.shape[0])
@@ -113,15 +113,24 @@ for i in range(0, sM.shape[0]):
   for a in range(0, l):
     for b in range(a+1, l):
         total_count += 1;
-        if (sM[i,r[a]]>sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) < abs(coords[i,0]-coords[r[b],0]))):
+        # xa = abs(coords[i,0]-coords[r[a],0])**2
+        # xb = abs(coords[i,0]-coords[r[b],0])**2
+        # ya = abs(coords[i,0]-coords[r[a],1])**2
+        # yb = abs(coords[i,0]-coords[r[b],1])**2
+        # if (sM[i,r[a]]>=sM[i,r[b]] and (xa+ya)<=(xb+yb)) :
+        #   similar_count1 += 1
+        # if (sM[i,r[a]]<sM[i,r[b]] and (xa+ya)>(xb+yb)) :
+        #   similar_count1 += 1
+        if (sM[i,r[a]]>=sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) <= abs(coords[i,0]-coords[r[b],0]))):
           similar_count1 += 1
         elif (sM[i,r[a]]<sM[i,r[b]] and (abs(coords[i,0]-coords[r[a],0]) > abs(coords[i,0]-coords[r[b],0]))):
           similar_count1 += 1
 
-        if (sM[i,r[a]]>sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) < abs(coords[i,1]-coords[r[b],1]))):
+        if (sM[i,r[a]]>=sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) <= abs(coords[i,1]-coords[r[b],1]))):
           similar_count2 += 1
         elif (sM[i,r[a]]<sM[i,r[b]] and (abs(coords[i,1]-coords[r[a],1]) > abs(coords[i,1]-coords[r[b],1]))):
           similar_count2 += 1
 
 
 print(similar_count1, similar_count2, total_count, similar_count1/total_count, similar_count2/total_count)
+#print(similar_count1, total_count, similar_count1/total_count)

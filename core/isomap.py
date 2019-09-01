@@ -72,7 +72,8 @@ elif sys.argv[1]=="all_sparse":
 else:  
   dM = np.load("../distances/21/1/distance_matrix_" + sys.argv[1] + ".npy")
 
-tM = thresholdMatrix(dM, 10)
+#tM = thresholdMatrix(dM, 10)
+tM = dM
 graph = csr_matrix(tM)
 
 # graph = [
@@ -106,5 +107,7 @@ plt.xlabel('dimension1 ($10^{-1}$)')
 plt.ylabel('dimension2 ($10^{-1}$)')
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/' + sys.argv[1] + "_isomap.svg", format="svg")
-plt.savefig('../results/21/1/isomap2d.png')
-plt.savefig('../results/21/1/isomap2d.pdf')
+#plt.savefig('../results/21/1/isomap2d.png')
+#plt.savefig('../results/21/1/isomap2d.pdf')
+plt.savefig('../results/21/1/mds2d.png')
+plt.savefig('../results/21/1/mds2d.pdf')
