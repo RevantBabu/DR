@@ -85,7 +85,7 @@ ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:30
 ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -5), 'o', label="Corner2")
 ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -5), 'o', label="Corner3")
 ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -5), 'o', label="Corner4")
-plt.title('Isomap Dimension1')
+plt.title('Firing rate overlap')
 plt.xlabel('time (s)')
 plt.ylabel('dimension1 ($10^{-2}$)')
 #ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),

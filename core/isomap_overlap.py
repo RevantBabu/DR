@@ -156,6 +156,14 @@ for i in range(0,rng):
     ncX.append(resX[i])
     ncY.append(resY[i])
 
+df1 = pd.read_csv("../data/processed/hc_13/" + sys.argv[1] + "/" + sys.argv[2] + "/" + cellNo + ".csv", header=None)
+spikes = df1[0].values
+
+n = end-start
+fr = np.zeros(n)
+for spike in spikes:
+  fr[int(spike) - start] += 1
+
 
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
@@ -186,3 +194,18 @@ plt.ylabel('dimension2 ($10^{-2}$)')
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/imev2_overlap_200.png')
 plt.savefig('../results/21/1/imev2_overlap_200.pdf')
+
+fig = plt.figure(figsize=(8,8))
+ax = plt.subplot(111)
+ax.plot(coords[:, 0][200:300]/np.max(coords[:, 0]), 'o-')
+ax.plot(fr[200:300]/np.max(fr), 'o-')
+plt.title('Isomap Dimension1 and Firing Rate')
+plt.xlabel('time (s)')
+plt.ylabel('dimension1 ($10^{-2}$)')
+#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+#plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
+plt.savefig('../results/21/1/imev1_fr_200.png')
+plt.savefig('../results/21/1/imev1_fr_200.pdf')
+
+print(np.max(fr), np.min(fr))
+print(np.max(coords[:, 0]), np.min(coords[:, 0]))
