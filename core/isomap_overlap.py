@@ -62,8 +62,7 @@ d12 = d12/np.amax(d12)
 #dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d10**2 + d11**2)
 dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2 + d12**2)
 
-#tM = thresholdMatrix(dM, 10)
-tM = dM
+tM = thresholdMatrix(dM, 10)
 graph = csr_matrix(tM)
 
 # graph = [
