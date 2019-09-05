@@ -59,7 +59,7 @@ for spike_time in n1:
 	else:
 		n1counts[key] = [int((spike_time-int(spike_time))*1000)]
 
-d = generateDistanceMatrix(slots, 20)
+d = generateDistanceMatrix(slots, 100)
 
-np.save("../distances/" + sys.argv[1] + "/" + sys.argv[2] + "/" + "distance_matrix_" + sys.argv[3] + "_1s_20ms.npy", d)
+np.save("../distances/" + sys.argv[1] + "/" + sys.argv[2] + "/" + "distance_matrix_" + sys.argv[3] + "_1s_100ms.npy", d)
 #print(d.shape)

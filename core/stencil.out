@@ -1,14 +1,7 @@
-Running on host node31-031
-Time is Tue Sep 3 13:27:13 BST 2019
+Running on host node31-029
+Time is Thu Sep 5 15:00:42 BST 2019
 Directory is /newhome/ic18314/DR/DR/core
-PBS job ID is 8669296.master.cm.cluster
-205
-820
-[7]
-[ 27  80  96 105 117 123 203 208 213 218 233 238]
-[  2 135 140 160 235 248]
-[ 61  67 105 109 116 121 127 141 150 200 212 215 223 236 239 243 246]
-[131 145 151 159 163]
+PBS job ID is 8679237.master.cm.cluster
 0
 1
 2
@@ -814,18 +807,3 @@ PBS job ID is 8669296.master.cm.cluster
 802
 803
 804
-805
-806
-807
-808
-809
-810
-811
-812
-813
-814
-815
-816
-817
-818
-819
