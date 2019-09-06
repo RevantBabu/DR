@@ -4,6 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import manifold
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
 if sys.argv[1]=="all":
   d1 = np.load("../distances/21/1/distance_matrix_T22_0_1s_20ms.npy")
   d2 = np.load("../distances/21/1/distance_matrix_T22_2_1s_20ms.npy")
@@ -42,10 +46,11 @@ coords = results.embedding_
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
-plt.title('Isomap Dimensions')
-plt.xlabel('dimension1')
-plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+ax.plot(coords[:, 0]*10, coords[:, 1]*10, 'o', label="Target neurons")
+plt.title('MDS Dimensions')
+plt.xlabel('dimension1 ($10^{-1}$)')
+plt.ylabel('dimension2 ($10^{-1}$)')
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/' + sys.argv[1] + "_isomap.svg", format="svg")
 plt.savefig('../results/21/1/mds2d.png')
+plt.savefig('../results/21/1/mds2d.pdf')
