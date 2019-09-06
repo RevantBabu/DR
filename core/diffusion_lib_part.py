@@ -12,9 +12,9 @@ rc('font', family='serif', size=26)
 
 
 #X = np.genfromtxt("../data/processed/hc_13/T22_4.csv", delimiter=',')[:, (1,2)]
-d1 = np.load("../distances/21/1/distance_matrix_T22_4_1s_20ms.npy")
-d2 = np.load("../distances/21/1/distance_matrix_T26_0_1s_20ms.npy")
-d3 = np.load("../distances/21/1/distance_matrix_T27_6_1s_20ms.npy")
+d1 = np.load("../distances/21/1/part_250ms_distance_matrix_T22_4_1s_20ms.npy")
+d2 = np.load("../distances/21/1/part_250ms_distance_matrix_T26_0_1s_20ms.npy")
+d3 = np.load("../distances/21/1/part_250ms_distance_matrix_T27_6_1s_20ms.npy")
 dM = np.sqrt(d1**2 + d2**2 + d3**2)
 
 #dM = np.load("../distances/21/1/distance_matrix_spatial.npy")
