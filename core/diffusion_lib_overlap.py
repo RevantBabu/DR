@@ -3,6 +3,7 @@ import scipy.io
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 from mpl_toolkits.mplot3d import Axes3D 
 
 from sklearn.datasets import load_digits
@@ -146,30 +147,44 @@ for spike in spikes:
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0][200:300]*100, 'o-')
-ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:300])[0].shape, -5), 'o', label="Corner1")
-ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -5), 'o', label="Corner2")
-ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -5), 'o', label="Corner3")
-ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -5), 'o', label="Corner4")
+ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:300])[0].shape, -5), 'o', color="green")
+ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -5), 'o', color="red")
+ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -5), 'o', color="black")
+ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -5), 'o', color="blue")
 plt.title('Diffusion Map Dimension1')
 plt.xlabel('time (s)')
 plt.ylabel('dimension1 ($10^{-2}$)')
 #ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
+line1 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="red")
+line2 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="green")
+line3 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="blue")
+line4 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="gray")
+plt.legend((line1,line2,line3,line4),('SW','NW', 'NE', 'SE'),numpoints=1,
+ bbox_to_anchor=(0.8, 0.22), borderaxespad=0., prop={'size': 17})
+
 plt.savefig('../results/21/1/dmev1_overlap_200.png')
 plt.savefig('../results/21/1/dmev1_overlap_200.pdf')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 1][200:300]*100, 'o-', label="Target neurons")
-ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:300])[0].shape, -5), 'o', label="Corner1")
-ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -5), 'o', label="Corner2")
-ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -5), 'o', label="Corner3")
-ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -5), 'o', label="Corner4")
+ax.plot(np.nonzero(cornerIdx1[200:300])[0], np.full(np.nonzero(cornerIdx1[200:300])[0].shape, -5), 'o', color="green")
+ax.plot(np.nonzero(cornerIdx2[200:300])[0], np.full(np.nonzero(cornerIdx2[200:300])[0].shape, -5), 'o', color="red")
+ax.plot(np.nonzero(cornerIdx3[200:300])[0], np.full(np.nonzero(cornerIdx3[200:300])[0].shape, -5), 'o', color="black")
+ax.plot(np.nonzero(cornerIdx4[200:300])[0], np.full(np.nonzero(cornerIdx4[200:300])[0].shape, -5), 'o', color="blue")
 plt.title('Diffusion Map Dimension2')
 plt.xlabel('time (s)')
 plt.ylabel('dimension2 ($10^{-2}$)')
 #ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
+line1 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="red")
+line2 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="green")
+line3 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="blue")
+line4 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="gray")
+plt.legend((line1,line2,line3,line4),('SW','NW', 'NE', 'SE'),numpoints=1,
+ bbox_to_anchor=(0.92, 0.75), borderaxespad=0., prop={'size': 17})
+
 plt.savefig('../results/21/1/dmev2_overlap_200.png')
 plt.savefig('../results/21/1/dmev2_overlap_200.pdf')
 
@@ -190,13 +205,13 @@ plt.savefig('../results/21/1/dmev3_overlap_200.pdf')
 
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
-ax.plot(10*coords[:, 0][200:300]/np.max(coords[:, 0]), 'o-')
-ax.plot(10*fr[200:300]/np.max(fr), 'o-')
+ax.plot(10*coords[:, 0][200:300]/np.max(coords[:, 0]), 'o-', label="dimension1")
+ax.plot(10*fr[200:300]/np.max(fr), 'o-', label="firing rate")
 plt.title('DM Dimension1 and Firing Rate')
 plt.xlabel('time (s)')
 plt.ylabel('magnitude')
 ax.yaxis.set_label_coords(-0.08,0.5)
-#ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
+ax.legend(loc='upper left',  shadow=True, ncol=1, bbox_to_anchor=(0.60, 0.25))#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
 plt.savefig('../results/21/1/dmev1_fr_200.png')
 plt.savefig('../results/21/1/dmev1_fr_200.pdf')

@@ -2,7 +2,9 @@ import sys
 import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 from mpl_toolkits.mplot3d import Axes3D 
+import matplotlib.lines as mlines
 
 from sklearn.datasets import load_digits
 from sklearn.manifold import SpectralEmbedding
@@ -119,12 +121,26 @@ fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 #ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons", c=cMap)
 for i in range(len(cMap)):
-    ax.scatter(coords[i, 0], coords[i, 1], color=cMap[i])
+    ax.scatter(coords[i, 0]*100, coords[i, 1]*100, color=cMap[i])
 plt.title('Diffusion Map Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
+ax.yaxis.set_label_coords(-0.08,0.5)
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
+# r_patch = mpatches.Patch(color='red', label='corner NE')
+# g_patch = mpatches.Patch(color='green', label='corner NW')
+# b_patch = mpatches.Patch(color='blue', label='corner SE')
+# k_patch = mpatches.Patch(color='black', label='corner SW')
+# plt.legend(handles=[r_patch, g_patch, b_patch, k_patch])
+
+line1 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="red")
+line2 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="green")
+line3 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="blue")
+line4 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="gray")
+plt.legend((line1,line2,line3,line4),('SW','NW', 'NE', 'SE'),numpoints=1,
+ bbox_to_anchor=(0.8, 0.22), borderaxespad=0., prop={'size': 17})
+
 plt.savefig('../results/21/1/filtered_dm2d.png')
 plt.savefig('../results/21/1/filtered_dm2d.pdf')
 

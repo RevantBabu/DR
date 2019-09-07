@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from matplotlib import rc
 rc('text', usetex=True)
-rc('font', family='serif', size=26)
+rc('font', family='serif', size=20)
 
 mat = scipy.io.loadmat('../data/raw/hc_13/T1rawpos.mat')
 days = mat['rawpos']
@@ -35,10 +35,11 @@ ax = fig.gca(projection='3d')
 z = np.linspace(0, rng, rng)
 
 ax.plot(resX, resY, z, 'o-', label='parametric curve', linewidth=0.6, markersize=1)# c = plt.cm.jet(z/max(z)))
-ax.legend()
+#ax.legend()
 
 #plt.show()
 plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall3D.png")
+plt.savefig("../plots/position_plot/" + sys.argv[1] + "/" + sys.argv[2] + "/overall3D.pdf")
 
 fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
