@@ -65,8 +65,8 @@ def thresholdMatrix(sM, topN):
   return result
 
 embedding = SpectralEmbedding(n_components=2, affinity="precomputed", n_neighbors=0)
-#coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
-coords = embedding.fit( thresholdMatrix(np.exp(-dM), 10) ).embedding_
+coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
+#coords = embedding.fit( thresholdMatrix(np.exp(-dM), 10) ).embedding_
 #coords = embedding.fit( 1/(dM+0.0001) ).embedding_
 #coords = embedding.fit( 1/(dM + 0.01)**2).embedding_
 #coords = embedding.fit( np.exp(-dM) ).embedding_
@@ -76,10 +76,10 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0]*100, coords[:, 1]*1000, 'o', label="Target neurons")
+ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
 plt.title('DiffusionMap top 2 Dimensions')
-plt.xlabel('dimension1 ($10^{-2}$)')
-plt.ylabel('dimension2 ($10^{-3}$)')
+plt.xlabel('dimension1')
+plt.ylabel('dimension2')
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
 plt.savefig('../results/21/1/dm2d.png')
@@ -88,7 +88,7 @@ plt.savefig('../results/21/1/dm2d.pdf')
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0]*100, 'o-', label="Target neurons")
-plt.title('DiffusionMap dimension1')
+plt.title('DiffusionMap dimension1 (HC)')
 plt.xlabel('time (s)')
 plt.ylabel('dimension1 ($10^{-2}$)')
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)

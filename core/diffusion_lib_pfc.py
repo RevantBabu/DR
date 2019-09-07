@@ -2,6 +2,7 @@ import sys
 import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 from mpl_toolkits.mplot3d import Axes3D 
 
 from sklearn.datasets import load_digits
@@ -55,10 +56,11 @@ print(coords.shape)
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 0], coords[:, 1], 'o', label="Target neurons")
-plt.title('Diffusion Map Dimensions')
+ax.plot(coords[:, 0]*100, coords[:, 1]*100, 'o', label="Target neurons")
+plt.title('Diffusion Map Dimensions on PFC')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
+ax.yaxis.set_label_coords(-0.08,0.5)
 #ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dm2d.png')
@@ -76,13 +78,15 @@ plt.savefig('../results/21/1/pfc/dmev1.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 1], 'o-', label="Target neurons")
-plt.title('DM lib Dimensions')
-plt.xlabel('dimension1')
+ax.plot(coords[:, 1]*100, 'o-', label="Target neurons")
+plt.title('Diffusion Map Dimension2 (PFC)')
+plt.xlabel('time (s)')
 plt.ylabel('dimension2')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+ax.yaxis.set_label_coords(-0.08,0.5)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
 #plt.savefig('../results/dm/21/1/test_dmlib_ev2.svg', format="svg")
 plt.savefig('../results/21/1/pfc/dmev2.png')
+plt.savefig('../results/21/1/pfc/dmev2.pdf')
 
 
 rng = dM.shape[0]
@@ -141,13 +145,13 @@ for i in range(0,rng):
     cornerX.append(resX[i])
     cornerY.append(resY[i])
     if (resX[i]<115 and resY[i]>100):
-      cornerIdx1[i] = -0.05
+      cornerIdx1[i] = -2.5
     elif (resX[i]<115 and resY[i]<100):
-      cornerIdx2[i] = -0.05
+      cornerIdx2[i] = -2.5
     elif (resX[i]>240 and resY[i]<100):
-      cornerIdx3[i] = -0.05
+      cornerIdx3[i] = -2.5
     elif (resX[i]>240 and resY[i]>100):
-      cornerIdx4[i] = -0.05
+      cornerIdx4[i] = -2.5
   else:
     ncX.append(resX[i])
     ncY.append(resY[i])
@@ -156,10 +160,10 @@ for i in range(0,rng):
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
 ax.plot(coords[:, 0][400:500], 'o-', label="Target neurons")
-ax.plot(cornerIdx1[400:500], 'o', label="Corner1")
-ax.plot(cornerIdx2[400:500], 'o', label="Corner2")
-ax.plot(cornerIdx3[400:500], 'o', label="Corner3")
-ax.plot(cornerIdx4[400:500], 'o', label="Corner4")
+ax.plot(np.nonzero(cornerIdx1[400:500])[0], np.full(np.nonzero(cornerIdx1[400:500])[0].shape, -5), 'o', color="green")
+ax.plot(np.nonzero(cornerIdx2[400:500])[0], np.full(np.nonzero(cornerIdx2[400:500])[0].shape, -5), 'o', color="red")
+ax.plot(np.nonzero(cornerIdx3[400:500])[0], np.full(np.nonzero(cornerIdx3[400:500])[0].shape, -5), 'o', color="black")
+ax.plot(np.nonzero(cornerIdx4[400:500])[0], np.full(np.nonzero(cornerIdx4[400:500])[0].shape, -5), 'o', color="blue")
 plt.title('DM lib Dimensions')
 plt.xlabel('dimension1')
 plt.ylabel('dimension2')
@@ -169,14 +173,22 @@ plt.savefig('../results/21/1/pfc/dmev1_overlap_200.png')
 
 fig = plt.figure(figsize=(9,9))
 ax = plt.subplot(111)
-ax.plot(coords[:, 1][400:500], 'o-', label="Target neurons")
-ax.plot(cornerIdx1[400:500], 'o', label="Corner1")
-ax.plot(cornerIdx2[400:500], 'o', label="Corner2")
-ax.plot(cornerIdx3[400:500], 'o', label="Corner3")
-ax.plot(cornerIdx4[400:500], 'o', label="Corner4")
-plt.title('DM lib Dimensions')
-plt.xlabel('dimension1')
+ax.plot(coords[:, 1][400:500]*100, 'o-', label="Target neurons")
+ax.plot(np.nonzero(cornerIdx1[400:500])[0], np.full(np.nonzero(cornerIdx1[400:500])[0].shape, -2.5), 'o', color="green")
+ax.plot(np.nonzero(cornerIdx2[400:500])[0], np.full(np.nonzero(cornerIdx2[400:500])[0].shape, -2.5), 'o', color="red")
+ax.plot(np.nonzero(cornerIdx3[400:500])[0], np.full(np.nonzero(cornerIdx3[400:500])[0].shape, -2.5), 'o', color="black")
+ax.plot(np.nonzero(cornerIdx4[400:500])[0], np.full(np.nonzero(cornerIdx4[400:500])[0].shape, -2.5), 'o', color="blue")
+plt.title('Diffusion Map Dimension2')
+plt.xlabel('time (s)')
 plt.ylabel('dimension2')
+ax.yaxis.set_label_coords(-0.08,0.5)
 #ax.legend(loc='upper left',  shadow=True, ncol=1)#bbox_to_anchor=(0.75, 1.075),
 #plt.savefig('../results/dm/21/1/test_dmlib_ev1.svg', format="svg")
+line1 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="red")
+line2 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="green")
+line3 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10, markerfacecolor="blue")
+line4 = mlines.Line2D(range(1), range(1), color="white", marker='o',markersize=10,markerfacecolor="gray")
+plt.legend((line1,line2,line3,line4),('SW','NW', 'NE', 'SE'),numpoints=1,
+ bbox_to_anchor=(0.8, 0.9), borderaxespad=0., prop={'size': 17})
 plt.savefig('../results/21/1/pfc/dmev2_overlap_200.png')
+plt.savefig('../results/21/1/pfc/dmev2_overlap_200.pdf')
