@@ -65,7 +65,8 @@ def thresholdMatrix(sM, topN):
   return result
 
 embedding = SpectralEmbedding(n_components=2, affinity="precomputed", n_neighbors=0)
-coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
+#coords = embedding.fit( thresholdMatrix(1/(dM+0.1), 10) ).embedding_
+coords = embedding.fit( 1/(dM+0.1) ).embedding_
 #coords = embedding.fit( thresholdMatrix(np.exp(-dM), 10) ).embedding_
 #coords = embedding.fit( 1/(dM+0.0001) ).embedding_
 #coords = embedding.fit( 1/(dM + 0.01)**2).embedding_

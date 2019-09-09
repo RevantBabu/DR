@@ -3,6 +3,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from matplotlib import rc
+rc('text', usetex=True)
+rc('font', family='serif', size=26)
+
 def generateSimilarityMatrix(dM):
   n = dM.shape[0]
   m = dM.shape[1]
@@ -53,16 +57,18 @@ if sys.argv[1]=="all":
   # d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
   # d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
   # d3 = np.load("distance_matrix_T22_3_1s_20ms.npy")
-  d4 = np.load("distance_matrix_T22_4_1s_" + sys.argv[2] + "ms.npy")
+  d4 = np.load("../distances/21/1/distance_matrix_T22_4_1s_" + sys.argv[2] + "ms.npy")
+  d5 = np.load("../distances/21/1/distance_matrix_T26_0_1s_" + sys.argv[2] + "ms.npy")
+  d6 = np.load("../distances/21/1/distance_matrix_T27_6_1s_" + sys.argv[2] + "ms.npy")
   # d5 = np.load("distance_matrix_T26_0_1s_20ms.npy")
   # d6 = np.load("distance_matrix_T27_1_1s_20ms.npy")
   # d7 = np.load("distance_matrix_T27_2_1s_20ms.npy")
   # d8 = np.load("distance_matrix_T27_3_1s_20ms.npy")
   # d9 = np.load("distance_matrix_T27_4_1s_20ms.npy")
   # d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
-  d11 = np.load("distance_matrix_T27_6_1s_" + sys.argv[2] + "ms.npy")
+  # d11 = np.load("distance_matrix_T27_6_1s_" + sys.argv[2] + "ms.npy")
   #dM = np.sqrt(d1**2 + d2**2 + d3**2 + d4**2 + d5**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2 + d11**2)
-  dM = np.sqrt(d4**2 + d11**2)  
+  dM = np.sqrt(d4**2 + d5**2 + d6**2)  
 elif sys.argv[1]=="all_sparse":
   d1 = np.load("distance_matrix_T22_0_1s_20ms.npy")
   d2 = np.load("distance_matrix_T22_2_1s_20ms.npy")
@@ -74,7 +80,7 @@ elif sys.argv[1]=="all_sparse":
   d10 = np.load("distance_matrix_T27_5_1s_20ms.npy")
   dM = np.sqrt(d1**2 + d2**2 + d3**2 + d6**2 + d7**2 + d8**2 + d9**2 + d10**2)
 else:  
-  dM = np.load("distance_matrix_" + sys.argv[1] + ".npy")
+  dM = np.load("../distances/21/1/distance_matrix_" + sys.argv[1] + ".npy")
 
 
 #dM = np.asarray([[0, 0, 1, 2, 0], [0, 0, 5, 1, 0], [1, 5, 0, 3, 1], [2, 1, 3, 0, 2], [0, 0, 1, 2, 0]])
@@ -109,31 +115,34 @@ np.savetxt('../results/' + sys.argv[1] + '_eigenVectors.txt', vSorted)
 
 fig = plt.figure(figsize=(9,4))
 ax = plt.subplot(111)
-ax.plot(vSorted[1]/vSorted[0], vSorted[2]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
+ax.plot(vSorted[1], vSorted[2], 'o', label="Target neurons")#, markersize=0.4)
 plt.title('Diffusion map, leading dimension')
 plt.xlabel('time')
 plt.ylabel('Leading eV values')
 ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
-plt.savefig('../results/' + sys.argv[1] + "_leadingVectors.svg", format="svg")
+plt.savefig('../results/' + sys.argv[1] + "_leadingVectors.pdf")
+plt.savefig('../results/' + sys.argv[1] + "_leadingVectors.png")
 
 
-fig = plt.figure(figsize=(9,4))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
-ax.plot(vSorted[1]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
-plt.title('Diffusion map, leading dimension')
+ax.plot(vSorted[1]*10, 'o', label="Target neurons")#, markersize=0.4)
+plt.title('Diffusion map, leading dimension1')
 plt.xlabel('time')
-plt.ylabel('Leading eV values')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
-plt.savefig('../results/' + sys.argv[1] + "_leadingVector1.svg", format="svg")
+plt.ylabel('eV values')
+ax.yaxis.set_label_coords(-0.08,0.5)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector1.pdf")
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector1.png")
 
 
-fig = plt.figure(figsize=(9,4))
+fig = plt.figure(figsize=(8,8))
 ax = plt.subplot(111)
-ax.plot(vSorted[2]/vSorted[0], 'o', label="Target neurons")#, markersize=0.4)
-plt.title('Diffusion map, leading dimension')
+ax.plot(vSorted[2]*10, 'o', label="Target neurons")#, markersize=0.4)
+plt.title('Diffusion map, leading dimension2')
 plt.xlabel('time')
-plt.ylabel('Leading eV values')
-ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
-plt.savefig('../results/' + sys.argv[1] + "_leadingVector2.svg", format="svg")
-
-
+plt.ylabel('eV values')
+ax.yaxis.set_label_coords(-0.08,0.5)
+#ax.legend(loc='upper left', bbox_to_anchor=(0.75, 1.075), shadow=True, ncol=1)
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector2.pdf")
+plt.savefig('../results/' + sys.argv[1] + "_leadingVector2.png")
